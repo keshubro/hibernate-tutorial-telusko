@@ -11,29 +11,25 @@ public class App
 {
     public static void main( String[] args )
     {
-        AlienName name = new AlienName();
-        name.setFirstName("Keshav");
-        name.setMiddleName("Kumar");
-        name.setLastName("Sharma");
+        Laptop laptop = new Laptop();
+        laptop.setLaptopId(101);
+        laptop.setLaptopName("Dell");
 
-        Alien keshav = new Alien();
-        keshav.setAid(101);
-        keshav.setAname(name);
-        keshav.setColor("Green");
+        Student student = new Student();
+        student.setName("Keshav");
+        student.setRollNo(1);
+        student.setMarks(52);
+        student.setLaptop(laptop);
 
-        Configuration configuration = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Alien.class);
+        Configuration configuration = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Laptop.class).addAnnotatedClass(Student.class);
         ServiceRegistry serviceRegistry  = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
         SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry );
         Session session = sessionFactory.openSession();
 
         // Save data in DB
         Transaction transaction = session.beginTransaction();
-            session.save(keshav);
+            session.save(laptop);
+            session.save(student);
         transaction.commit();
-
-        // Fetch data from DB
-        // Will give us null if data does not exist in the DB
-        Alien fetcedAlien = session.get(Alien.class, 101);
-        System.out.println(fetcedAlien);
     }
 }
