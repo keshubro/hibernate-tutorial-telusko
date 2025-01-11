@@ -2,7 +2,11 @@ package com.telusko;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Laptop {
@@ -11,8 +15,8 @@ public class Laptop {
     private int laptopId;
     private String laptopName;
 
-    @ManyToOne
-    private Student student;
+    @ManyToMany
+    private List<Student> students = new ArrayList<>();
 
     public int getLaptopId() {
         return laptopId;
@@ -30,11 +34,11 @@ public class Laptop {
         this.laptopName = laptopName;
     }
 
-    public Student getStudent() {
-        return student;
+    public List<Student> getStudents() {
+        return students;
     }
 
-    public void setStudent(Student student) {
-        this.student = student;
+    public void setStudents(List<Student> students) {
+        this.students = students;
     }
 }

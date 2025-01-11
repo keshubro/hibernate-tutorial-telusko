@@ -2,6 +2,7 @@ package com.telusko;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ public class Student {
     private int marks;
 
     // Every student will have multiple laptops
-    @OneToMany(mappedBy = "student")
+    @ManyToMany(mappedBy = "students")
     private List<Laptop> laptops = new ArrayList<>();
 
     public int getRollNo() {

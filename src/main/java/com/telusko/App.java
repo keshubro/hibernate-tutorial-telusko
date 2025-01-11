@@ -21,7 +21,7 @@ public class App
         student.setRollNo(1);
         student.setMarks(52);
         student.getLaptops().add(laptop);
-        laptop.setStudent(student);
+        laptop.getStudents().add(student);
 
         Configuration configuration = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Laptop.class).addAnnotatedClass(Student.class);
         ServiceRegistry serviceRegistry  = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
