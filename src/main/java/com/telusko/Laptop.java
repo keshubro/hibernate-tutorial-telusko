@@ -2,6 +2,7 @@ package com.telusko;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Laptop {
@@ -9,6 +10,9 @@ public class Laptop {
     @Id
     private int laptopId;
     private String laptopName;
+
+    @ManyToOne
+    private Student student;
 
     public int getLaptopId() {
         return laptopId;
@@ -24,5 +28,13 @@ public class Laptop {
 
     public void setLaptopName(String laptopName) {
         this.laptopName = laptopName;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
     }
 }

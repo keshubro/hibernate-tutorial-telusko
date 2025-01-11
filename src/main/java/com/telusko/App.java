@@ -15,11 +15,13 @@ public class App
         laptop.setLaptopId(101);
         laptop.setLaptopName("Dell");
 
+
         Student student = new Student();
         student.setName("Keshav");
         student.setRollNo(1);
         student.setMarks(52);
-        student.setLaptop(laptop);
+        student.getLaptops().add(laptop);
+        laptop.setStudent(student);
 
         Configuration configuration = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Laptop.class).addAnnotatedClass(Student.class);
         ServiceRegistry serviceRegistry  = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();

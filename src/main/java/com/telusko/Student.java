@@ -2,7 +2,10 @@ package com.telusko;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.OneToMany;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Student {
@@ -12,9 +15,9 @@ public class Student {
     private String name;
     private int marks;
 
-    // Every student will have a laptop
-    @OneToOne
-    private Laptop laptop;
+    // Every student will have multiple laptops
+    @OneToMany(mappedBy = "student")
+    private List<Laptop> laptops = new ArrayList<>();
 
     public int getRollNo() {
         return rollNo;
@@ -40,11 +43,11 @@ public class Student {
         this.marks = marks;
     }
 
-    public Laptop getLaptop() {
-        return laptop;
+    public List<Laptop> getLaptops() {
+        return laptops;
     }
 
-    public void setLaptop(Laptop laptop) {
-        this.laptop = laptop;
+    public void setLaptops(List<Laptop> laptops) {
+        this.laptops = laptops;
     }
 }
