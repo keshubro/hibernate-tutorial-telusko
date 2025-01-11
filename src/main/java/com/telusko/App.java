@@ -11,29 +11,21 @@ public class App
 {
     public static void main( String[] args )
     {
-        AlienName name = new AlienName();
-        name.setFirstName("Keshav");
-        name.setMiddleName("Kumar");
-        name.setLastName("Sharma");
-
-        Alien keshav = new Alien();
-        keshav.setAid(101);
-        keshav.setAname(name);
-        keshav.setColor("Green");
-
         Configuration configuration = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Alien.class);
         ServiceRegistry serviceRegistry  = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
         SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry );
-        Session session = sessionFactory.openSession();
+        Session session1 = sessionFactory.openSession();
+        
+        Transaction transaction = session1.beginTransaction();
+            Alien fetcedAlien = session1.get(Alien.class, 101);
+            System.out.println(fetcedAlien);
 
-        // Save data in DB
-        Transaction transaction = session.beginTransaction();
-            session.save(keshav);
+            fetcedAlien = session1.get(Alien.class, 102);
+            System.out.println(fetcedAlien);
+
+            // It won't make a query to the DB. Instead, it will first check on the first level cache. If not found, second level cache.
+            fetcedAlien = session1.get(Alien.class, 101);
+            System.out.println(fetcedAlien);
         transaction.commit();
-
-        // Fetch data from DB
-        // Will give us null if data does not exist in the DB
-        Alien fetcedAlien = session.get(Alien.class, 101);
-        System.out.println(fetcedAlien);
     }
 }
