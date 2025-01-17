@@ -13,6 +13,11 @@
         <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
         <property name="hbm2ddl.auto">none</property>
         <property name="show_sql">true</property>
+
+        <!--        Enable second level cache-->
+        <property name="cache.use_second_level_cache">true</property>
+        <property name="cache.region.factory_class">org.hibernate.cache.jcache.internal.JCacheRegionFactory</property>
+        <property name="cache.use_query_cache">true</property>
 <!--        <mapping resource="employee.hbm.xml"/>-->
     </session-factory>
 </hibernate-configuration>

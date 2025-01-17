@@ -1,9 +1,16 @@
 package com.telusko;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Cacheable;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Entity
 @Table(name="Alien_Table")
+@Cacheable
+@Cache(usage= CacheConcurrencyStrategy.READ_ONLY)
 public class Alien {
 
     @Id
