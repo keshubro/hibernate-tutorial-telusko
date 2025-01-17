@@ -11,27 +11,26 @@ public class App
 {
     public static void main( String[] args )
     {
-        Laptop laptop = new Laptop();
+        // New state - When we create an object using the new keyword
+        Laptops laptop = new Laptops();
+
+        // Transient state - When we assign values to data members
         laptop.setLaptopId(101);
-        laptop.setLaptopName("Dell");
+        laptop.setBrand("Dell");
+        laptop.setPrice(1000);
 
-
-        Student student = new Student();
-        student.setName("Keshav");
-        student.setRollNo(1);
-        student.setMarks(52);
-        student.getLaptops().add(laptop);
-        laptop.getStudents().add(student);
-
-        Configuration configuration = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Laptop.class).addAnnotatedClass(Student.class);
+        Configuration configuration = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Laptops.class);
         ServiceRegistry serviceRegistry  = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
         SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry );
         Session session = sessionFactory.openSession();
 
         // Save data in DB
         Transaction transaction = session.beginTransaction();
-            session.save(laptop);
-            session.save(student);
+            session.save(laptop);   // Managed state - when we call the save method
+            laptop.setPrice(950);   // This will update the price to 950 in the DB automatically
         transaction.commit();
+
+        session.detach(laptop); // Detached state
+        laptop.setPrice(900);   // This updated value will not be persisted in the DB.
     }
 }
